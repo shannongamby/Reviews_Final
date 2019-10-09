@@ -14,6 +14,9 @@ public class Comment {
     @Column(name = "comment_content")
     private String commentContent;
 
+    @JoinColumn(name = "review_id")
+    private Integer reviewId;
+
     public Integer getCommentId() {
         return commentId;
     }
@@ -28,5 +31,13 @@ public class Comment {
 
     public void setCommentContent(String commentContent) {
         this.commentContent = commentContent;
+    }
+
+    public Integer getReviewId() {
+        return reviewId;
+    }
+
+    public void setReviewId(Integer reviewId) {
+        this.reviewId = reviewId;
     }
 }
