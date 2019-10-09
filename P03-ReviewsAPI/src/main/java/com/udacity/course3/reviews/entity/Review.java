@@ -14,6 +14,10 @@ public class Review {
     @Column(name = "review_content")
     private String reviewContent;
 
+    @ManyToOne
+    @JoinColumn(name="product_id")
+    private Integer productId;
+
     public Integer getReviewId() {
         return reviewId;
     }
@@ -28,5 +32,13 @@ public class Review {
 
     public void setReviewContent(String reviewContent) {
         this.reviewContent = reviewContent;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
+
+    public Integer getProductId() {
+        return productId;
     }
 }
