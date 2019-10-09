@@ -16,7 +16,7 @@ public class Review {
 
     @ManyToOne(targetEntity = Product.class)
     @JoinColumn(name="product_id")
-    private Integer productId;
+    private Product product;
 
     public Integer getReviewId() {
         return reviewId;
@@ -34,11 +34,11 @@ public class Review {
         this.reviewContent = reviewContent;
     }
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
+    public void setProductId(Product product) {
+        this.product = product;
     }
 
-    public Integer getProductId() {
-        return productId;
+    public Product getProductId() {
+        return product;
     }
 }

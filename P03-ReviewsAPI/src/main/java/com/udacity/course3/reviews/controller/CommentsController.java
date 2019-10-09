@@ -39,7 +39,7 @@ public class CommentsController {
     public ResponseEntity<?> createCommentForReview(@PathVariable("reviewId") Integer reviewId, @Valid @RequestBody Comment comment) {
         Optional<Review> review = reviewRepository.findById(reviewId);
         if (review.isPresent()) {
-            comment.setReviewId(review.get().getReviewId());
+            comment.setReviewId(review.get());
             commentRepository.save(comment);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } else {

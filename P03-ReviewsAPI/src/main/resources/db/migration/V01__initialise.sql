@@ -1,5 +1,6 @@
 create table products(
     product_id int auto_increment,
+    product_name varchar(100),
     constraint product_pk primary key (product_id)
 );
 
