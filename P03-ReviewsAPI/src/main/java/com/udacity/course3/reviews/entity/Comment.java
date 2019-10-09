@@ -14,6 +14,7 @@ public class Comment {
     @Column(name = "comment_content")
     private String commentContent;
 
+    @ManyToOne(targetEntity = Review.class)
     @JoinColumn(name = "review_id")
     private Integer reviewId;
 

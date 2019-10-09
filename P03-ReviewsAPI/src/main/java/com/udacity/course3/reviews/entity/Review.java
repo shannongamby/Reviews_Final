@@ -14,7 +14,7 @@ public class Review {
     @Column(name = "review_content")
     private String reviewContent;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Product.class)
     @JoinColumn(name="product_id")
     private Integer productId;
 
