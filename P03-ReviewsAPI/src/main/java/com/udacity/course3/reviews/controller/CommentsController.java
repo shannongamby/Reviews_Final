@@ -1,8 +1,11 @@
 package com.udacity.course3.reviews.controller;
 
 import com.udacity.course3.reviews.entity.Comment;
+import com.udacity.course3.reviews.entity.MongoComment;
+import com.udacity.course3.reviews.entity.MongoReview;
 import com.udacity.course3.reviews.entity.Review;
 import com.udacity.course3.reviews.repository.CommentRepository;
+import com.udacity.course3.reviews.repository.MongoReviewRepository;
 import com.udacity.course3.reviews.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +26,7 @@ public class CommentsController {
     @Autowired
     private CommentRepository commentRepository;
     private ReviewRepository reviewRepository;
+    private MongoReviewRepository mongoReviewRepository;
 
     /**
      * Creates a comment for a review.
@@ -40,6 +44,20 @@ public class CommentsController {
         if (review.isPresent()) {
             comment.setReviewId(review.get());
             commentRepository.save(comment);
+
+
+            Optional<MongoReview> optionalMongoReview = mongoReviewRepository.findById(reviewId);
+            if (optionalMongoReview.isPresent()) {
+                MongoComment mongoComment = new MongoComment();
+                mongoComment.setCommentId(comment.getCommentId());
+                mongoComment.setContent(comment.getCommentContent());
+
+                MongoReview mongoReview = optionalMongoReview.get();
+                mongoReview.addComment(mongoComment);
+                mongoReviewRepository.save(mongoReview);
+            }
+
+
             return new ResponseEntity<>(HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

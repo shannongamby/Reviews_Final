@@ -3,7 +3,6 @@ package com.udacity.course3.reviews.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,7 @@ public class MongoReview {
     @Id
     private Integer reviewId;
     private String reviewContent;
-    private List<MongoComment> commentDocuments = new ArrayList<>();
+    private List<MongoComment> mongoComments = new ArrayList<>();
     private Integer productId;
 
     public Integer getReviewId() {
@@ -32,11 +31,11 @@ public class MongoReview {
     }
 
     public List<MongoComment> getComments() {
-        return commentDocuments;
+        return mongoComments;
     }
 
-    public void add(MongoComment comment) {
-        this.commentDocuments.add(comment);
+    public void addComment(MongoComment comment) {
+        this.mongoComments.add(comment);
     }
 
     public void setProductId(Integer productId) {
