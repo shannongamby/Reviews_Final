@@ -1,7 +1,9 @@
 package com.udacity.course3.reviews.controller;
 
+import com.udacity.course3.reviews.entity.MongoReview;
 import com.udacity.course3.reviews.entity.Product;
 import com.udacity.course3.reviews.entity.Review;
+import com.udacity.course3.reviews.repository.MongoReviewRepository;
 import com.udacity.course3.reviews.repository.ProductRepository;
 import com.udacity.course3.reviews.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ public class ReviewsController {
     @Autowired
     ReviewRepository reviewRepository;
     ProductRepository productRepository;
+    MongoReviewRepository mongoReviewRepository;
 
     /**
      * Creates a review for a product.
@@ -40,6 +43,14 @@ public class ReviewsController {
         if (optionalProduct.isPresent()) {
             review.setProductId(optionalProduct.get());
             reviewRepository.save(review);
+
+            MongoReview mongoReview = new MongoReview();
+            mongoReview.setReviewId(review.getReviewId());
+            mongoReview.setReviewContent(review.getReviewContent());
+            mongoReview.setProductId(productId);
+
+            mongoReviewRepository.save(mongoReview);
+
             return new ResponseEntity<>(HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
